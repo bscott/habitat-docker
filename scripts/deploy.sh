@@ -1,0 +1,42 @@
+#!/usr/bin/env sh
+set -eu
+if [ -n "${DEBUG:-}" ]; then set -x; fi
+
+banner() { echo " ---> $*"; }
+info() { echo "      $*"; }
+
+if [ -z "${HAB_VERSION:-}" ]; then
+  >&2 echo "Required environment variable: HAB_VERSION"
+  exit 2
+fi
+
+if [ -z "${DOCKER_USERNAME:-}" ]; then
+  >&2 echo "Required environment variable: DOCKER_USERNAME"
+  exit 2
+fi
+
+if [ -z "${DOCKER_PASSWORD:-}" ]; then
+  >&2 echo "Required environment variable: DOCKER_PASSWORD"
+  exit 2
+fi
+
+image="bscott/habitat"
+tag="${image}:$(echo "$HAB_VERSION" | tr '/' '-')"
+
+banner "Logging in to Docker Hub..."
+docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+info "Login success."
+
+banner "Pushing $tag"
+docker push "$tag"
+info "Pushing $tag complete."
+banner "Pushing ${image}:latest"
+docker push "${image}:latest"
+info "Pushing ${image}:latest complete."
+
+info "Cleaning up"
+rm -rf "$HOME/.docker/config.json"
+
+banner "Deploy $tag complete."
+
+exit 0

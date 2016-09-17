@@ -13,6 +13,8 @@ RUN set -ex \
   && rm -f install.sh \
   && apk del .build-deps \
   \
+  && apk add --no-cache ncurses-terminfo-base \
+  \
   && echo "hab:x:42:42:root:/:/bin/sh" >> /etc/passwd \
   && echo "hab:x:42:hab" >> /etc/group
 WORKDIR /src

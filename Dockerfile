@@ -9,7 +9,7 @@ RUN set -ex \
   \
   && cd /tmp \
   && wget https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh \
-  && sh install.sh ${HAB_VERSION:-} \
+  && sh install.sh -v ${HAB_VERSION:-} \
   && rm -f install.sh \
   && apk del .build-deps \
   \

@@ -1,11 +1,12 @@
-FROM alpine:3.4
+FROM alpine:3.5
 MAINTAINER Brian L. Scott <Brian@Bscott.io>
 ARG HAB_VERSION=
 RUN set -ex \
   && apk add --no-cache --virtual .build-deps \
-    wget \
     ca-certificates \
     gnupg \
+    libressl \
+    wget \
   \
   && cd /tmp \
   && wget https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh \

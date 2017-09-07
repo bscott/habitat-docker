@@ -21,22 +21,27 @@ if [ -z "${DOCKER_PASSWORD:-}" ]; then
 fi
 
 image="bscott/habitat"
-tag="${image}:$(echo "$HAB_VERSION" | tr '/' '-')"
+tag1="$(echo "$HAB_VERSION" | tr '/' '-')"
+tag2="$(echo "$HAB_VERSION" | cut -d '/' -f 1)"
+tag3="latest"
 
 banner "Logging in to Docker Hub..."
 docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 info "Login success."
 
-banner "Pushing $tag"
-docker push "$tag"
-info "Pushing $tag complete."
-banner "Pushing ${image}:latest"
-docker push "${image}:latest"
-info "Pushing ${image}:latest complete."
+banner "Pushing $image:$tag1"
+docker push "$image:$tag1"
+info "Pushing $image:$tag1 complete."
+banner "Pushing $image:$tag2"
+docker push "$image:$tag2"
+info "Pushing $image:$tag2 complete."
+banner "Pushing $image:$tag3"
+docker push "$image:$tag3"
+info "Pushing $image:$tag3 complete."
 
 info "Cleaning up"
 rm -rf "$HOME/.docker/config.json"
 
-banner "Deploy $tag complete."
+banner "Deploy $image complete."
 
 exit 0

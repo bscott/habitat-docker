@@ -11,20 +11,26 @@ if [ -z "${HAB_VERSION:-}" ]; then
 fi
 
 image="bscott/habitat"
-tag="${image}:$(echo "$HAB_VERSION" | tr '/' '-')"
+tag1="$(echo "$HAB_VERSION" | tr '/' '-')"
+tag2="$(echo "$HAB_VERSION" | cut -d '/' -f 1)"
+tag3="latest"
 
-banner "Building $tag for hab version $HAB_VERSION"
-docker build -t "$tag" --build-arg "HAB_VERSION=$HAB_VERSION" .
-image_id="$(docker images -q "$tag")"
-docker tag "$image_id" "${image}:latest"
+banner "Building $image for hab version $HAB_VERSION"
+docker build \
+  --tag "$image:$tag1" \
+  --tag "$image:$tag2" \
+  --tag "$image:$tag3" \
+  --build-arg "HAB_VERSION=$HAB_VERSION" \
+  .
+image_id="$(docker images -q "$tag1")"
 info "Build complete."
 
 info
-banner "Docker image built: $tag ($image_id)"
+banner "Docker image built: $image ($image_id)"
 info
 info "Try it out with:"
 info
-info "    docker run --rm -ti --privileged -v \$(pwd):/src bscott/habitat sh"
+info "    docker run --rm -ti --privileged -v \$(pwd):/src $image sh"
 info
 
 exit 0

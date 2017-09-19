@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 MAINTAINER Brian L. Scott <Brian@Bscott.io>
 ARG HAB_VERSION=
 RUN set -ex \

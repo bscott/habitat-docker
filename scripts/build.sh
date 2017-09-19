@@ -22,7 +22,7 @@ docker build \
   --tag "$image:$tag3" \
   --build-arg "HAB_VERSION=$HAB_VERSION" \
   .
-image_id="$(docker images -q "$tag1")"
+image_id="$(docker images -q "$image:$tag1")"
 info "Build complete."
 
 info

@@ -1,4 +1,4 @@
-# Habitat Docker Image
+# [Habitat Docker Image][repo]
 
 The [Habitat][] Docker image is a very minimal image which is based on the stock [Alpine Linux][] container and has `core/hab` installed with a binlink to `/bin/hab`. There are no other packages or software installed, so this could be used as a base to build higher order images. Alternatively, it is a perfect "clean room" for running Habitat Supervsirs, Studio builds, or anything else that Habitat can do.
 
@@ -48,3 +48,4 @@ New version tags of this image are pushed with each Habitat release, so you can 
 
 [Habitat]: https://www.habitat.sh
 [Alpine Linux]: https://hub.docker.com/_/alpine/
+[repo]: https://github.com/bscott/habitat-docker

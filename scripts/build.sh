@@ -30,7 +30,7 @@ banner "Docker image built: $image ($image_id)"
 info
 info "Try it out with:"
 info
-info "    docker run --rm -ti --privileged -v \$(pwd):/src $image sh"
+info "    docker run --rm -ti --privileged -v \$(pwd):/src $image:$tag1 sh"
 info
 
 exit 0

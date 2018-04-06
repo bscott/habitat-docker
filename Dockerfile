@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.7
 MAINTAINER Brian L. Scott <Brian@Bscott.io>
 ARG HAB_VERSION=
 RUN set -ex \
@@ -11,7 +11,7 @@ RUN set -ex \
   && cd /tmp \
   && wget https://raw.githubusercontent.com/habitat-sh/habitat/master/components/hab/install.sh \
   && sh install.sh -v ${HAB_VERSION:-} \
-  && rm -rf install.sh /hab/cache \
+  && rm -rf install.sh /hab/cache /root/.wget-hsts /root/.gnupg \
   && apk del .build-deps \
   \
   && apk add --no-cache ncurses-terminfo-base \
